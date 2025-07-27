@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const userSchema = new  mongoose.Schema({
 
-    fullName:{
+    fullname:{
         required:true,
         type:String
     },
@@ -28,7 +28,7 @@ const userSchema = new  mongoose.Schema({
     },
     profile:{
         bio:{type:String},
-        skill:[{type:String}],
+        skills:[{type:String}],
         resume:{type:String},//url of resume
         resumeOriginalName:{type:String},
         company:{type:mongoose.Schema.Types.ObjectId , ref:"Company"},
