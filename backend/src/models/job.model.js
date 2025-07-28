@@ -40,6 +40,10 @@ const jobSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
+    experience:{
+        required:true,
+        type:String
+    },
     application:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Application"
@@ -48,6 +52,6 @@ const jobSchema = new mongoose.Schema({
 
 },{timestamps:true})
 
-const Job = mongoose.Schema("Job" , jobSchema)
+const Job = mongoose.model("Job" , jobSchema)
 
 module.exports = Job
