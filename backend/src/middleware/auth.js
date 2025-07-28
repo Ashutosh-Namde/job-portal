@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const isAuth = async (req,res,next) => {
    try {
-     const token = req.cookie.token;
+     const token = req.cookies.token;
     if(!token){
         res.status(400).json({message:"user not authenticated" , success:false})
     }
@@ -11,9 +11,11 @@ const isAuth = async (req,res,next) => {
         res.status(400).json({message:"Invalid token" , success:false})
 
     }
-    req.id = decode.user.Id;
+    req.id = decode.userId;
     next()
    } catch (error) {
+    console.log(error);
+    
     res.status(400).json({message:"error in middleware" , error})
    }
 }

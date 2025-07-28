@@ -92,27 +92,21 @@ const logoutController = async (req,res) => {
 
 const updateProfileController = async (req,res) => {
     try {
-        const {fullname , email , phoneNumber , bio ,skills} = req.body
+        const userId = req.id
+        let {fullname , email , phoneNumber , bio ,skills} = req.body
         const file = req.file
-        if(!fullname || !email || !phoneNumber || !bio || !skills){
-        return res.status(400).json({message:"fill all the requirements" , success:false})
-             
-        }
 
         // cloudnary yega yaha
-        const skillsArray = skills.split(",")
-        let user =  await User.findById(req.id)
+
+        let skillsArray;
+       if(skills){
+          skillsArray = skills.split(",")
+       }
+        let user =  await User.findByIdAndUpdate(userId,{fullname,email,phoneNumber,bio,skillsArray},{new:true})
         if(!user){
         return res.status(400).json({message:"user not found" , success:false})
 
         }
-
-        //update data
-        user.fullname = fullname,
-        user.email = email,
-        user.phoneNumber = phoneNumber,
-        user.profile.bio = bio,
-        user.profile.skills = skillsArray
 
         //resume come latter
 
@@ -127,9 +121,11 @@ const updateProfileController = async (req,res) => {
         profile:user.profile
         }
 
-        return res.status(200).json({message:`Account created succesfuly`,user ,  success:true})
+        return res.status(200).json({message:`Account updated succesfuly`,user ,  success:true})
 
     } catch (error) {
+        console.log(error);
+        
         return res.status(400).json({message:"error in updating data" ,error})
         
     }
