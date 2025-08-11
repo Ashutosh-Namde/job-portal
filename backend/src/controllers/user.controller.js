@@ -7,6 +7,8 @@ const registrationController = async(req,res)=>{
     try {
         
     const {fullname , email , password , phoneNumber , role } = req.body;
+    console.log(fullname , email , password , phoneNumber , role);
+    
     if(!fullname || !email || !password || !phoneNumber || !role ){
         return res.status(400).json({message:"fill all the requirements" , success:false})
     }
